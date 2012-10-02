@@ -1,0 +1,61 @@
+#jspod {
+  width: 100%;
+  overflow-x: hidden;
+}
+/* TODO: eigentlich sollte dies nicht notwendig sein! */
+#jspod_panels {
+  width: 200%;
+  position: absolute;
+  padding-top: 32px;
+  /* wird durch JSPod.adjustSizes() weiter angeglichen */
+
+}
+.jspod_panel {
+  width: 50%;
+  position: absolute;
+  overflow-y: auto;
+}
+.jspod_panel_content {
+  padding: 20px;
+}
+#jspod_episode_panel {
+  left: 50%;
+}
+#jspod_podcast_panel img {
+  width: 200px;
+  float: left;
+  margin: 0 30px 10px 0;
+}
+#jspod_podcast_panel #jspod_podcast_panel_header {
+  margin-bottom: 30px;
+}
+#jspod_podcast_panel li {
+  list-style-type: none;
+}
+#jspod_podcast_panel ul {
+  padding: 0;
+}
+#jspod_header {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 32px;
+}
+#jspod_header a.ui-navbutton-next,
+#jspod_header a.ui-navbutton-prev {
+  text-decoration: none;
+  display: block;
+  height: 20px;
+  padding: 4px;
+}
+#jspod_header a.ui-navbutton-next span,
+#jspod_header a.ui-navbutton-prev span {
+  display: inline-block;
+  vertical-align: middle;
+}
+#jspod_header .ui-navbutton-prev {
+  float: left;
+}
+#jspod_header .ui-navbutton-next {
+  float: right;
+}
