@@ -1,11 +1,13 @@
 #jspod {
   width: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
+  height: 100%;
 }
 /* TODO: eigentlich sollte dies nicht notwendig sein! */
 #jspod_panels {
   width: 200%;
-  position: absolute;
+  position: relative;
+  height: 100%;
   padding-top: 32px;
   /* wird durch JSPod.adjustSizes() weiter angeglichen */
 
@@ -36,7 +38,7 @@
   padding: 0;
 }
 #jspod_header {
-  position: fixed;
+  position: absolute;
   z-index: 100;
   width: 100%;
   height: 32px;

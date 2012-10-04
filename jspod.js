@@ -125,14 +125,10 @@
   };
 
   renderInside = function(template, target, data) {
-    var html;
     if (data == null) {
       data = {};
     }
-    html = render(template, data);
-    target = $(target);
-    target.empty();
-    return target.append(html);
+    return $(target).html(render(template, data));
   };
 
   navigateTo = function(target) {
@@ -211,7 +207,7 @@
   activePanel = panels[0];
 
   adjustSizes = function() {
-    $("#jspod_" + activePanel.id + "_panel").height(window.innerHeight - $("#jspod_header").outerHeight());
+    $("#jspod_" + activePanel.id + "_panel").height($("#jspod").innerHeight() - $("#jspod_header").outerHeight());
     return $("#jspod_panels").css("padding-top", "" + ($("#jspod_header").outerHeight()) + "px");
   };
 
