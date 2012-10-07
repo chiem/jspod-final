@@ -164,7 +164,7 @@
             if (episode.media_type === "audio") {
               height = 24;
             } else {
-              height = 400;
+              height = 480;
             }
             flashsrc = render("flash_media", {
               width: width,

@@ -23,6 +23,10 @@
 #jspod_episode_panel {
   left: 50%;
 }
+#jspod_episode_panel video {
+  max-width: 100%;
+  height: auto;
+}
 #jspod_podcast_panel img {
   width: 300px;
   float: left;
