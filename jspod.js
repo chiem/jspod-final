@@ -87,7 +87,11 @@
           episode.id = "#!/" + episode.id + "/";
         }
         episode.subtitle = getText(item.find("itunes\\:subtitle"));
+        if (episode.subtitle === null) {
+          episode.subtitle = getText(item.find("subtitle"));
+        }
         episode.description = getText(item.find("description"));
+        episode.short_description = getText($($(episode.description), "p").first());
         episode.source = getAttr(item.find("enclosure"), "url");
         episode.source_type = getAttr(item.find("enclosure"), "type");
         episode.sources = [];
@@ -322,8 +326,8 @@
 
   templates = {
     player: "\n<div id=\"jspod\" class=\"ui-widget ui-helper-clearfix\">\n	<div id=\"jspod_header\"\n	     class=\"ui-widget-header ui-helper-clearfix\">\n		<a class=\"ui-navbutton-prev ui-corner-all ui-state-default\"\n		   title=\"Previous Panel\"\n		   onclick=\"return false;\"\n		   style=\"display: none\">\n			<span class=\"ui-icon ui-icon-circle-triangle-w\"></span>\n			<span class=\"ui-navbutton-text\"></span>\n		</a>\n		<a class=\"ui-navbutton-next ui-corner-all ui-state-default\"\n		   title=\"Next Panel\"\n		   onclick=\"return false;\"\n		   style=\"display: none\">\n			<span class=\"ui-navbutton-text\"></span>\n			<span class=\"ui-icon ui-icon-circle-triangle-e\"></span>\n		</a>\n	</div>\n	<div id=\"jspod_panels\" class=\"ui-widget-content\">\n		<div class=\"jspod_panel\" id=\"jspod_podcast_panel\">\n			<div class=\"jspod_panel_content\"\n			     id=\"jspod_podcast_panel_content\"></div>\n		</div>\n		<div class=\"jspod_panel\" id=\"jspod_episode_panel\">\n			<div class=\"jspod_panel_content\"\n			     id=\"jspod_episode_panel_content\"></div>\n		</div>\n	</div>\n</div>\n",
-    podcast: "<div id=\"jspod_podcast_panel_header\" class=\"ui-helper-clearfix\">\n	<%= img_tag(podcast.image, \"\") %>\n\n	<h1><%= podcast.title %></h1>\n\n	<%= podcast.description %>\n</div>\n\n<h2>Alle Folgen</h2>\n\n<ul>\n	<% $.each(podcast.episodes, function(index, episode) { %>\n		<li>\n			<hgroup>\n				<h3>\n					<%= link_start_tag(episode.id, episode.title) %>\n						<%= episode.title %>\n					</a>\n				</h3>\n				<h4><%= episode.subtitle %></h4>\n			</hgroup>\n		</li>\n	<% }); %>\n</ul>\n",
-    episode: "<header>\n	<h1><%= episode.title %></h1>\n</header>\n\n<!-- TODO: besser implementieren (mehrere Sources) -->\n\n<div id=\"jspod_mediacontainer\">\n	<%= mediaelementsrc %>\n</div>\n\n<p>\n	<a href=\"<%= episode.source %>\" \n	   title=\"Download dieser <%= episode.source_type %>-Datei\">\n	   Download dieser <%= episode.source_type %>-Datei\n	</a>\n</p>\n\n<%= episode.description %>",
+    podcast: "<div id=\"jspod_podcast_panel_header\" class=\"ui-helper-clearfix\">\n	<%= img_tag(podcast.image, \"\") %>\n\n	<h1><%= podcast.title %></h1>\n\n	<%= podcast.description %>\n</div>\n\n<h2>Alle Folgen</h2>\n\n<ul>\n	<% $.each(podcast.episodes, function(index, episode) { %>\n		<li>\n			<hgroup>\n				<h3>\n					<%= link_start_tag(episode.id, episode.title) %>\n						<%= episode.title %>\n					</a>\n				</h3>\n				<h4><%= episode.subtitle %></h4>\n			</hgroup>\n			<p><%= episode.short_description %></p>\n		</li>\n	<% }); %>\n</ul>\n",
+    episode: "<header>\n	<hgroup>\n	<h1><%= episode.title %></h1>\n	<h2><%= episode.subtitle %></h2>\n	</hgroup>\n</header>\n\n<!-- TODO: besser implementieren (mehrere Sources) -->\n\n<div id=\"jspod_mediacontainer\">\n	<%= mediaelementsrc %>\n</div>\n\n<p>\n	<a href=\"<%= episode.source %>\" \n	   title=\"Download dieser <%= episode.source_type %>-Datei\">\n	   Download dieser <%= episode.source_type %>-Datei\n	</a>\n</p>\n\n<%= episode.description %>",
     native_media: "<<%= episode.media_type %> id=\"jspod_mediaelement\" controls=\"controls\"\n	metadata=\"preload\" width=\"<%= width %>\" height=\"<%= height %>\"\n	alt=\"\">\n	<% $.each(episode.sources, function (i, source) { %>\n		<source src='<%= source.source %>'\n		type='<%= source.source_type %>'>\n	<% }); %>\n	<%= flash %>\n</<%= episode.media_type %>>",
     flash_media: "<embed\n	src='<%= flashurl %>'\n	name='jspod_mediaelement_flash'\n	id='jspod_mediaelement_flash'\n	allowscriptaccess='always'\n	allowfullscreen='true'\n	flashvars='file=<%= source %>'\n	width='<%= width %>'\n	height='<%= height %>'\n	alt=''\n>"
   };
