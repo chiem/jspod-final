@@ -271,7 +271,7 @@
                 navTargetTitle = "" + (navTargetTitle.substring(0, 27)) + "...";
               }
               navButton.find(".ui-navbutton-text").text(navTargetTitle);
-              navButton.attr("href", navTargetHash);
+              navButton.attr("href", "?_escaped_fragment_=" + navTargetHash);
               navButton.click((function(target) {
                 return function(e) {
                   return navigateTo(target);
@@ -314,7 +314,12 @@
   };
 
   EJS.Helpers.prototype.link_start_tag = function(target, title) {
-    return "<a href=\"" + target + "\" title=\"" + title + "\"\n   onclick=\"JSPod.navigateTo('" + target + "'); return false\">";
+    var fragment;
+    fragment = target;
+    if (target.substring(0, 2) === "#!") {
+      fragment = target.substring(2);
+    }
+    return "<a href=\"?_escaped_fragment_=" + fragment + "\" title=\"" + title + "\"\n   onclick=\"JSPod.navigateTo('" + target + "'); return false\">";
   };
 
   (typeof exports !== "undefined" && exports !== null ? exports : this).JSPod = {
