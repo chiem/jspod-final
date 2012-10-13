@@ -277,6 +277,9 @@
             }
           }
           activePanel = panel;
+          if (options.afterPanelChange !== null) {
+            options.afterPanelChange(panel);
+          }
           break;
         }
         index++;
